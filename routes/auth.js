@@ -13,15 +13,12 @@ const generateToken = (id) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: 'Passwords do not match' });
-    }
 
     const userExists = await User.findOne({ email });
     if (userExists) {
